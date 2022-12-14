@@ -1,0 +1,19 @@
+{
+	"folders":
+	[
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"LSP": {
+			"LSP-css": {
+				"settings": {
+					"css.customData": [
+						"./client/lsp-css.json"
+					]
+				}
+			}
+		}
+	}
+}
