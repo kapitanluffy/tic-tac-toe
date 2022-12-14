@@ -72,7 +72,7 @@ export class GameService {
         for(let y=0; y<yLen; y++) {
             for(let x=0; x<xLen; x++) {
                 if (!(y in board)) board[y] = []
-                board[y].push(null)
+                board[y].push({ grid: { xpos: x, ypos: y } })
             }
         }
 
@@ -112,11 +112,18 @@ export class GameService {
     async isPlayerTurnValid(game: Game, mark: PlayerMark) {
         const player = await this.gamePlayersRepo.findOneBy({ gameId: game.id, playerId: mark.playerId });
 
-        return game.state.playerTurn === mark.playerId && player.mark === mark.mark;
+        return game.state.playerTurn === mark.playerId;
+    }
+
+    async createMark(playerId: number, grid: Grid) {
+        const player = await this.gamePlayersRepo.findOneBy({ playerId: playerId })
+
+        return new PlayerMark(player.playerId, { xpos: grid.xpos, ypos: grid.ypos }, player.mark);
     }
 
     async setMark(game: Game, playerMark: PlayerMark) {
-        // mark: MarkType, grid: Grid, gameId: number, playerId: number) {
+        const player = await this.gamePlayersRepo.findOneBy({ playerId: playerMark.playerId })
+
         let _mark = this.marksRepo.create({
             gameId: game.id,
             playerId: playerMark.playerId,

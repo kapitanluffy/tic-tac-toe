@@ -10,7 +10,4 @@ export class MarkDto {
 
     @IsNumber()
     playerId: number
-
-    @IsString()
-    mark: MarkType
 }

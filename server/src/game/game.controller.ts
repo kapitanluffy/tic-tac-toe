@@ -41,7 +41,7 @@ export class GameController {
     ) {
         const _game = await this.service.getGame(gameId);
 
-        if (!_game) {
+        if (!_game || _game.state.status !== GameStatus.ongoing) {
             throw new NotFoundException(`Game ${gameId} not found`);
         }
 
@@ -52,7 +52,7 @@ export class GameController {
             throw new BadRequestException('Invalid grid')
         }
 
-        const mark = new PlayerMark(data.playerId, { xpos: data.xpos, ypos: data.ypos }, data.mark)
+        const mark = await this.service.createMark(data.playerId, { xpos: data.xpos, ypos: data.ypos })
 
         if (!await this.service.isPlayerTurnValid(_game, mark)) {
             throw new BadRequestException('Invalid player turn')

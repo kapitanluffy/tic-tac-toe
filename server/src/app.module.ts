@@ -7,6 +7,7 @@ import { Game } from './game/game.entity';
 import { GameModule } from './game/game.module';
 import { Mark } from './game/mark.entity';
 import { Player } from './game/player.entity';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -22,7 +23,8 @@ import { Player } from './game/player.entity';
         GamePlayer
       ]
     }),
-    GameModule],
+    GameModule,
+    UserModule],
   controllers: [AppController],
   providers: [AppService],
 })

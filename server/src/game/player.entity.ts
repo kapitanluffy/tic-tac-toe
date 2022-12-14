@@ -10,4 +10,7 @@ export class Player {
 
   @Column()
   email: string;
+
+  @Column()
+  password: string;
 }
